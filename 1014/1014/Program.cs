@@ -1,4 +1,4 @@
-﻿//P1();
+//P1();
 //P2();
 //P3();
 //P4();
@@ -7,25 +7,110 @@
 
 //D1(10);
 //D2(10);
-//D4(10);
+//D4(9);
+
+L1(6);
 
 
 /// <summary>
-/// 1
-/// 1 1
-/// 2 1
-/// 1 2 1 1
-/// 1 1 1 2 2 1
-/// 3 1 2 2 1 1
-/// 1 3 1 1 2 2 2 1 
-/// 1 1 1 3 2 1 3 2 1 1
+/// 1- 1
+/// 2- 1 1
+/// 3- 2 1
+/// 4- 1 2 1 1
+/// 5- 1 1 1 2 2 1
+/// 6- 3 1 2 2 1 1
+/// 7- 1 3 1 1 2 2 2 1 
+/// 8- 1 1 1 3 2 1 3 2 1 1
 /// </summary>
 /// <param name="n">numarul de linii care se afiseaza</param>
 static void L1(int n)
 {
 
-    // TODO:implement readout list of numbers
+    int x = 1; // dimensiunea vectorului 
+    int[] v= new int[10000000]; // vectorul 
+    v[0] = 1; // primul element din vector 
 
+    Console.WriteLine(v[0]); // afisarea primei linii
+
+    for (int i = 1; i < n; i++) 
+    {
+
+        if (i == 1)
+        {
+            x++;
+            v[0] = 1;
+            v[1] = 1;
+            Console.Write($"{v[0]} {v[1]}");
+            Console.WriteLine();
+        }
+        else
+        {
+            int nr , p1, p2, g,p=0;
+
+            while (p < x)
+            {
+                g = 0; nr = 1;p1 = 0;p2 = 0;
+
+                // se parcurge for-ul pentru a numara cate numere sunt consecutive 
+
+                for (int j = p; j < x - 1; j++)
+                {
+                    if (v[j] == v[j + 1])
+                    {
+                        if (g == 0)
+                        {
+                            g = v[j];
+                        }
+                        if (nr == 1) p1 = j;
+                        nr++;
+                        p = j;
+                        p2= j + 1;
+                    }
+                    else
+                    {
+                        break;
+                    }
+
+                }
+
+                // crearea al treilea linie 
+                if(p2-p1==1)
+                {
+                    v[p2] = v[p1]; 
+                    v[p1] = nr;
+                    p = p1 + 2;
+
+                }
+                else if(p2-p1>1)
+                {
+                    v[p1] = nr;
+                    v[p1 + 1] = g; 
+
+
+                    for (int d = p1 + 2; d < x; d++)
+                        v[d] = v[d + 1];
+                    x = x - p2 + 1;
+
+                   
+                    p = p1 + 2;
+                }
+
+                if (nr == 1)
+                {
+                    for (int d = x; d > p; d--)
+                        v[d] = v[d - 1];
+                    x++;
+                    v[p] = nr;
+                    p = p + 2;
+                   
+                }
+            }
+           
+            for (int h = 0; h < x; h++)
+                    Console.Write($"{v[h]} ");
+                Console.WriteLine();
+        }
+    }
 }
 
 /// <summary>
@@ -43,18 +128,48 @@ static void L1(int n)
 //defapt pare ca v este si numarul maxim de stelute de pe o linie
 static void D4(int v)
 {
-    //TODO
+    
+    int sp = 1; 
+   for(int i=1;i<=v;i++)
+    {
+        if(i==1 || i==v)
+        {
+            string line = new string('*', v);
+            Console.WriteLine(line);
+        }
+        else if(i<=(v/2)+1)
+        {
+            string line = new string('*',(v-sp)/2);
+            string spa = new string(' ', sp);
+            Console.Write(line);
+            Console.Write(spa);
+            Console.Write(line);
+            Console.WriteLine();
+            sp=sp+2;
+        }
+        else if (i > v / 2 + 1)
+        {
+            sp=sp-2;
+            string line = new string('*', (v-sp)/2);
+            string spa = new string(' ', sp);
+            Console.Write(line);
+            Console.Write(spa);
+            Console.Write(line);
+            Console.WriteLine();
+        }
+        
+    }
 }
 
-    /// <summary>
-    ///    *
-    ///   * *
-    ///  *   *
-    /// * * * *
-    /// </summary>
-    /// <param name="n"></param>
-    /// <exception cref="NotImplementedException"></exception>
-    static void D3(int n)
+/// <summary>
+///    *
+///   * *
+///  *   *
+/// * * * *
+/// </summary>
+/// <param name="n"></param>
+/// <exception cref="NotImplementedException"></exception>
+static void D3(int n)
 {
     // prima linie
     for (int i = 0; i < n - 1; i++)
@@ -115,7 +230,7 @@ static void D2(int n)
 static void P6()
 {
     //TODO
-    
+
 }
 
 
