@@ -1,9 +1,10 @@
-﻿
+
 
 
 
 #region Palindrom
 // Palindrom
+
 
 
 //Oglindit(12345);
@@ -15,16 +16,18 @@
 // 121  ; 123;,456;12321
 using System.Diagnostics;
 
+
+
 void VerificarePalindrom(Func<string, bool> checkPalindrom)
 {
     string line = Console.ReadLine();
-    char[] seps = {' ', ',', ';' };
+    char[] seps = { ' ', ',', ';' };
     string[] tokens = line.Split(seps, StringSplitOptions.RemoveEmptyEntries);
 
-   
+
     foreach (string token in tokens)
     {
-        if(checkPalindrom(token))
+        if (checkPalindrom(token))
             Console.WriteLine($"{token} este palindrom");
         else
             Console.WriteLine($"{token} nu este palindrom");
@@ -49,12 +52,12 @@ bool Palindrom2(string token)
 int Oglindit(int nr)
 {
     int ogl = 0;
-    while(nr > 0)
+    while (nr > 0)
     {
         int cifra = nr % 10;
         nr /= 10;
 
-        ogl = ogl * 10  + cifra;
+        ogl = ogl * 10 + cifra;
     }
     return ogl;
 }
@@ -94,11 +97,11 @@ static void Sort3()
 
 
 #region Divizori
-int n = 1000000000; 
+int n = 1000000000;
 
 Stopwatch sw = new Stopwatch();
 sw.Start();
-Console.WriteLine($"Suma divizorilor lui {n} este {SumaDivizori1(n)}");
+Console.WriteLine($"Suma divizorilor lui {n} este {SumaDivizori4(n)}");
 sw.Stop();
 Console.WriteLine($"Timpul de executie: - {sw.Elapsed}");
 // 100 ==> 1, 2, 4, 5, 10, 20, 25, 50, 100
@@ -126,6 +129,28 @@ long SumaDivizori3(int n)
 // d | n ==> d = p1^q1 * p2^q2 * p3^q3; (a+1)*(b+1)*(c+1);
 // SD(n) = (1+p1+...p1^a) * (1+p2+...p2^b) * (1+p3+...p3^c)
 
+long SumaDivizori4(int n)
+{
+    long suma = 1;
+    int d = 2;
+
+    while(n!=1)
+    {
+        long SumaPartial = 1,p=1;
+        
+            while(n%d==0)
+            {
+                n = n / d;
+                p = p * d;
+                SumaPartial=SumaPartial + p;
+            }
+
+        suma = suma * SumaPartial;
+        d++;
+    }
+    return suma;
+}
+
 // O(n)
 long SumaDivizori2(int nr)
 {
@@ -146,9 +171,9 @@ long SumaDivizori1(int nr)
 {
     long suma = 0;
 
-    for(int d = 1; d <= n; d++)
+    for (int d = 1; d <= n; d++)
     {
-        if(nr % d == 0) 
+        if (nr % d == 0)
             suma += d;
     }
 

@@ -1,4 +1,4 @@
-﻿// MATRICI
+// MATRICI
 
 #region Input parsing
 string text = File.ReadAllText("input.txt");
@@ -48,9 +48,9 @@ void Spirala(int[,] m)
     int i2 = m.GetLength(0) - 1;
     int j2 = m.GetLength(1) - 1;
     int k = 0;
-    while(true)
+    while (true)
     {
-        for(int j = j1; j <= j2; j++)
+        for (int j = j1; j <= j2; j++)
         {
             Console.WriteLine($"{m[i1, j]} ");
             k++;
@@ -58,7 +58,7 @@ void Spirala(int[,] m)
         i1++;
         if (k == m.Length)
             break;
-        for(int i = i1; i <= i2; i++)
+        for (int i = i1; i <= i2; i++)
         {
             Console.WriteLine($"{m[i, j2]} ");
             k++;
@@ -88,17 +88,164 @@ void Spirala(int[,] m)
 }
 
 // Matrici patratice
-// TODO:
 // Suma elementelor de pe diagonala principala (i == j)
+
+int Suma_diagP(int[,] m)
+{
+    int Suma = 0;
+    for (int i = 0; i < m.GetLength(0); i++)
+        for (int j = 0; j < m.GetLength(1); j++)
+            if (i == j) Suma += m[i, j];
+
+    return Suma;
+}
+
+Console.WriteLine($"Suma elementelor de pe diagonala principala a primei matrici este {Suma_diagP(m1)}");
+Console.WriteLine($"Suma elementelor de pe diagonala principala al doilea matrici este {Suma_diagP(m2)}");
+
+
 // Suma elementelor de pe diagonala secundara (i+j == n - 1)
+
+int Suma_diagS(int[,] m)
+{
+    int Suma = 0;
+    for (int i = 0; i < m.GetLength(0); i++)
+        for (int j = 0; j < m.GetLength(1); j++)
+            if (i+j == m.GetLength(0)-1) Suma += m[i, j];
+
+    return Suma;
+}
+
+Console.WriteLine($"Suma elementelor de pe diagonala secundara a primei matrici este {Suma_diagS(m1)}");
+Console.WriteLine($"Suma elementelor de pe diagonala secundara al doilea matrici este {Suma_diagP(m2)}");
+
 // Suma elementelor de deasupra diagonalei principale (i < j)
-// Suma elementelor de sub diagonala principala
+
+int Suma_deasupra_diagP(int[,] m)
+{
+    int Suma = 0;
+
+    for(int i=0;i<m.GetLength(0);i++)
+        for(int j=0;j<m.GetLength(1);j++)
+            if(i<j) Suma += m[i,j];
+
+    return Suma;
+}
+
+Console.WriteLine($"Suma elementelor de deasupra diagonala principala a primei matrici este {Suma_deasupra_diagP(m1)}");
+Console.WriteLine($"Suma elementelor de deasupra diagonala principala al doilea matrici este {Suma_deasupra_diagP(m2)}");
+
+// Suma elementelor de sub diagonala principala 
+
+int Suma_sub_diagP( int[,] m)
+{
+    int Suma = 0;
+
+    for (int i = 0; i < m.GetLength(0); i++)
+        for (int j = 0; j < m.GetLength(1); j++)
+            if (i > j) Suma += m[i, j];
+
+    return Suma;
+}
+
+Console.WriteLine($"Suma elementelor de sub diagonala principala a primei matrici este {Suma_sub_diagP(m1)}");
+Console.WriteLine($"Suma elementelor de sub diagonala principala al doilea matrici este {Suma_sub_diagP(m2)}");
+
 // Suma elementelor de deasupra diagonalei secundare
-// Suma elementelor de sub diagonala secundare
+
+int Suma_deasupra_diagS(int[,] m)
+{
+    int Suma = 0;
+
+    for (int i = 0; i < m.GetLength(0); i++)
+        for (int j = 0; j < m.GetLength(1); j++)
+            if (i + j < m.GetLength(0) - 1) Suma += m[i, j];
+
+    return Suma;
+}
+
+Console.WriteLine($"Suma elementelor de pe deasupra diagonalei secundare a primei matrici este {Suma_deasupra_diagS(m1)}");
+Console.WriteLine($"Suma elementelor de pe deasupra diagonalei secundare al doilea matrici este {Suma_deasupra_diagS(m2)}");
+
+// Suma elementelor de sub diagonala secundare 
+
+int Suma_sub_diagS( int[,] m)
+{
+    int Suma = 0;
+
+    for (int i = 0; i < m.GetLength(0); i++)
+        for (int j = 0; j < m.GetLength(1); j++)
+            if (i + j > m.GetLength(0) - 1) Suma += m[i, j];
+
+    return Suma;
+}
+
+Console.WriteLine($"Suma elementelor de sub diagonalei secundare a primei matrici este {Suma_sub_diagS(m1)}");
+Console.WriteLine($"Suma elementelor de sub diagonalei secundare al doilea matrici este {Suma_sub_diagS(m2)}");
+
 // Suma elementelor din zona de Nord a matricii
+
+int Suma_Nord(int[,] m)
+{
+    int Suma = 0;
+    for (int i = 0; i < m.GetLength(0); i++)
+        for (int j = 0; j < m.GetLength(1); j++)
+            if (i < j && i + j < m.GetLength(0) - 1)
+            {
+                Suma += m[i, j];
+            }
+
+    return Suma;
+}
+
+Console.WriteLine($"Suma elementelor din zona de Nord a primei matrici este {Suma_Nord(m1)}");
+Console.WriteLine($"Suma elementelor din zona de Nord al doilea matrici este {Suma_Nord(m2)}");
+
 // Suma elementelor din zona de Sud a matricii
-// Suma elementelor din zona de Est a matricii
+
+int Suma_Sud(int[,] m)
+{
+    int Suma = 0;
+    for (int i = 0; i < m.GetLength(0); i++)
+        for (int j = 0; j < m.GetLength(1); j++)
+            if (i > j && i + j > m.GetLength(0) - 1) Suma += m[i, j];
+        return Suma;
+}
+
+Console.WriteLine($"Suma elementelor din zona de Sud a primei matrici este {Suma_Sud(m1)}");
+Console.WriteLine($"Suma elementelor din zona de Sud al doilea matrici este {Suma_Sud(m2)}");
+
+// Suma elementelor din zona de Est a matricii s
+
+int Suma_Est(int[,] m)
+{
+    int Suma = 0;
+    for (int i = 0; i < m.GetLength(0); i++)
+        for (int j = 0; j < m.GetLength(1); j++)
+            if(i<j &&  i + j > m.GetLength(0)-1) Suma += m[i, j];
+
+    return Suma;
+}
+
+Console.WriteLine($"Suma elementelor din zona de Est a primei matrici este {Suma_Est(m1)}");
+Console.WriteLine($"Suma elementelor din zona de Est al doilea matrici este {Suma_Est(m2)}");
+
 // Suma elementelor din zona de Vest a matricii
+
+int Suma_Vest(int[,] m)
+{
+    int Suma = 0;
+
+    for (int i = 0; i < m.GetLength(0); i++)
+        for (int j = 0; j < m.GetLength(1); j++)
+            if (i > j && i + j < m.GetLength(0) - 1) Suma += m[i, j];
+
+    return Suma;
+}
+
+Console.WriteLine($"Suma elementelor din zona de Vest a primei matrici este {Suma_Vest(m1)}");
+Console.WriteLine($"Suma elementelor din zona de Vest al doilea matrici este {Suma_Vest(m2)}");
+
 
 // Parcurgere pe diagonala
 //4 4
@@ -119,7 +266,7 @@ void PrintMatrix(int[,] matrix)
 {
     for (int i = 0; i < matrix.GetLength(0); i++)
     {
-        for(int j = 0;  j < matrix.GetLength(1); j++)
+        for (int j = 0; j < matrix.GetLength(1); j++)
             Console.Write($"{matrix[i, j]} ");
         Console.WriteLine();
     }
@@ -137,10 +284,10 @@ int[,] ParseMatrix(string str)
     int.TryParse(t2[0].Trim(), out LIN);
     int.TryParse(t2[1].Trim(), out COL);
     int[,] matrix = new int[LIN, COL];
-    for(int i = 0; i < LIN; i++)
+    for (int i = 0; i < LIN; i++)
     {
         t2 = lines[i + 1].Split(" ", StringSplitOptions.RemoveEmptyEntries);
-        for(int j = 0; j < t2.Length; j++)
+        for (int j = 0; j < t2.Length; j++)
             matrix[i, j] = int.Parse(t2[j]);
     }
     return matrix;
